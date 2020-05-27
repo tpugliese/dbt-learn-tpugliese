@@ -4,4 +4,4 @@ SELECT
     "paymentMethod" as payment_method,
     amount,
     created
-FROM raw.stripe.payment
+FROM {{ source('stripe', 'payment') }}

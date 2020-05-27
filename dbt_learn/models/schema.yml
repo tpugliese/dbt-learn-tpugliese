@@ -1,0 +1,49 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    database: raw
+    description: "The Jaffle Shop!"
+
+    tables:
+      - name: customers
+        description: "Customers Staging Table"
+        columns:
+          - name: id
+            description: "Primary Key of the Table"
+            tests:
+            - unique
+            - not_null
+
+      - name: orders
+        description: "Orders Staging Table"
+        columns:
+          - name: id
+            description: "Primary Key of the Table"
+            tests:
+            - unique
+            - not_null
+          - name: status
+            tests:
+              - accepted_values:
+                  values: 
+                    - completed
+                    - shipped
+                    - placed
+                    - returned
+                    - return_pending    
+
+
+  - name: stripe
+    database: raw
+    description: "Stripe.Payment for Orders"
+
+    tables:
+      - name: payment
+        description: "Payment Staging"
+        columns:
+        - name: id
+          description: "Primary Key of the Table"
+          tests:
+          - unique
+          - not_null
