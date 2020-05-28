@@ -1,10 +1,3 @@
-/*
-# manage trailing commas DONE
-# make list avaible to other things WORK - DONE
-# know what they are (list of values) - DONE
-# remove white space? - DONE
-# last column loop - DONE
-*/
 
 {% set payment_method_query %}
 select distinct
@@ -25,9 +18,9 @@ order by 1
 with payments as (
     SELECT 
      order_id,
-    {%- for abcd in payment_method %}
+    {%- for abcd in payment_method|sort %}
         sum(case when payment_method = '{{ abcd }}' then amount else 0 end) as {{ abcd }}_amount
-    {%- if not loop.last -%},{%- endif -%}
+    {{- "," if not loop.last -}}
     {% endfor %}
     FROM {{ ref('stg_payments') }}
     GROUP BY order_id
