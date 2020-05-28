@@ -16,7 +16,7 @@ final as (
         customers.first_name,
         customers.last_name,
         coalesce(customer_orders.number_of_orders, 0) as number_of_orders,
-        coalesce(sum(sum_payments/100), 0) as lifetime_value
+        coalesce(sum(sum_payments), 0) as lifetime_value
     from customers
     left join customer_orders using (customer_id)
     GROUP BY 
